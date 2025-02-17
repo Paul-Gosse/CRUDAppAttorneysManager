@@ -20,9 +20,8 @@ This project is a web application for managing attorneys and see their results i
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/samtarbury/attorney-crud.git
-   https://github.com/Paul-Gosse/CRUDAppAttorneysManager/
-   cd attorney-crud
+   git clone https://github.com/Paul-Gosse/CRUDAppAttorneysManager.git
+   cd CRUDAppAttorneysManager
    ```
 
 2. **Install dependencies:**

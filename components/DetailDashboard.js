@@ -32,6 +32,18 @@ const specialtyStyles = {
 
 // Main component displaying attorney details with statistical insights
 const DetailDashboard = ({ attorney, language }) => {
+
+    // Verify if the attorney exist
+    if (!attorney) {
+        return (
+            <Box sx={{ padding: 3, textAlign: 'center' }}>
+                <Typography variant="h6" color="error">
+                    {translations[language]?.attorneyNotFound || "Attorney not found."}
+                </Typography>
+            </Box>
+        );
+    }
+
     const translate = translations[language];
     const isMobile800 = useMediaQuery('(max-width:800px)');
     const isMobile500 = useMediaQuery('(max-width:500px)');

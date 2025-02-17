@@ -277,12 +277,14 @@ const AttorneyList = observer(() => {
         </Box>
       </div >
 
-      {selectedAttorneyId && (
+      {selectedAttorneyId && attorneyStore.attorneys.find(attorney => attorney.id === selectedAttorneyId) && (
         <Box sx={{ marginTop: 1 }}>
-          <DetailDashboard attorney={attorneyStore.attorneys.find(attorney => attorney.id === selectedAttorneyId)} language={language} />
+          <DetailDashboard
+            attorney={attorneyStore.attorneys.find(attorney => attorney.id === selectedAttorneyId)}
+            language={language}
+          />
         </Box>
-      )
-      }
+      )}
 
       <AddPopUp
         open={openAddPopup}

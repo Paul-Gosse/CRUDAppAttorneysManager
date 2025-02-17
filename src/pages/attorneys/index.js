@@ -14,7 +14,7 @@ import EditPopUp from '../../../components/EditPopUp';
 import { useMediaQuery } from '@mui/material';
 import DetailDashboard from '../../../components/DetailDashboard';
 
-
+// Object containing styles for different law specialties
 const specialtyStyles = {
   "Personal Law": { backgroundColor: "#FAE3D9", color: "#E07A5F" },
   "Criminal Law": { backgroundColor: "#F7D6E0", color: "#D96B92" },
@@ -35,6 +35,8 @@ const specialtyStyles = {
   default: { backgroundColor: "#E0E0E0", color: "#7A7A7A" },
 };
 
+
+// Observer main component
 const AttorneyList = observer(() => {
   const [openAddPopup, setOpenAddPopup] = useState(false);
   const [openEditPopup, setOpenEditPopup] = useState(false);
@@ -45,12 +47,11 @@ const AttorneyList = observer(() => {
   const [columnsDataGrid, setColumnsDataGrid] = useState([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
 
-
-
-
+  // Media query hooks to detect screen size and adjust the data grid columns accordingly
   const isMobile800 = useMediaQuery('(max-width:800px)');
   const isMobile500 = useMediaQuery('(max-width:500px)');
 
+  // Adjust columns in the data grid based on screen size and language
   useEffect(() => {
     if (isMobile500) {
       setColumnsDataGrid(defaultColumns.filter(col => col.field !== 'phoneNumber' && col.field !== 'email' && col.field !== 'firstName'));
@@ -61,9 +62,10 @@ const AttorneyList = observer(() => {
     }
   }, [isMobile800, isMobile500, language]);
 
-
+  // Get the translation object for the selected language
   const translate = translations[language];
 
+  // Load saved language preference from local storage on component mount
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage) {
@@ -71,6 +73,7 @@ const AttorneyList = observer(() => {
     }
   }, []);
 
+  // Handle click on the Edit button to open the Edit Popup with selected attorney data
   const handleEditClick = () => {
     if (selectedRow.length > 0) {
       setSelectedAttorneyId(selectedRow[0]);
@@ -78,6 +81,7 @@ const AttorneyList = observer(() => {
     }
   };
 
+  // Default column definitions for the data grid
   const defaultColumns = [
     { field: 'firstName', headerName: translate.datagridFirstName, flex: 1, headerAlign: 'center' },
     { field: 'lastName', headerName: translate.datagridLastName, flex: 1, headerAlign: 'center' },
@@ -114,11 +118,13 @@ const AttorneyList = observer(() => {
     { field: 'email', headerName: translate.datagridEmail, flex: 1.5, headerAlign: 'center' },
   ];
 
+  // Handle language change and update the localStorage for persistence
   const handleLanguageChange = (newLang) => {
     setLanguage(newLang);
     localStorage.setItem('language', newLang);
   };
 
+  // Fetch attorneys data when the component mounts
   useEffect(() => {
     attorneyStore.fetchAttorneys();
   }, []);

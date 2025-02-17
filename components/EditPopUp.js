@@ -7,9 +7,11 @@ import "react-phone-number-input/style.css";
 import translations from "./Translations";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
+// Observer component to react to state changes
 const EditPopUp = observer(({ open, onClose, selectedId, setAlert, language }) => {
     const translate = translations[language];
 
+    // State to store attorney data
     const [formData, setFormData] = useState({
         id: "",
         firstName: "",
@@ -24,6 +26,7 @@ const EditPopUp = observer(({ open, onClose, selectedId, setAlert, language }) =
         wonCases: 0,
     });
 
+    // Fetch attorney details when the popup is opened
     useEffect(() => {
         if (open && selectedId) {
             const fetchAttorney = async () => {
@@ -35,6 +38,7 @@ const EditPopUp = observer(({ open, onClose, selectedId, setAlert, language }) =
                     if (attorney) {
                         setFormData(attorney);
 
+                        // Parse phone number to extract country code
                         const parsedPhone = parsePhoneNumberFromString(attorney.phoneNumber);
                         if (parsedPhone) {
                             setFormData(prevData => ({
@@ -56,6 +60,7 @@ const EditPopUp = observer(({ open, onClose, selectedId, setAlert, language }) =
         }
     }, [open, selectedId]);
 
+    // Handle input field changes
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -64,7 +69,7 @@ const EditPopUp = observer(({ open, onClose, selectedId, setAlert, language }) =
         });
     };
 
-
+    // Handle phone number changes
     const handlePhoneChange = (value) => {
         setFormData({ ...formData, phoneNumber: value });
         const parsedPhone = parsePhoneNumberFromString(value);
@@ -77,7 +82,9 @@ const EditPopUp = observer(({ open, onClose, selectedId, setAlert, language }) =
         }
     };
 
+    // Handle form submission
     const handleSave = async () => {
+        // Validate required fields
         if (!formData.firstName || !formData.lastName || !formData.specialty || !formData.phoneNumber || !formData.email || !formData.description || formData.totalCases === undefined || formData.wonCases === undefined) {
             setAlert({ severity: "error", message: translate.fieldsRequired });
             return;

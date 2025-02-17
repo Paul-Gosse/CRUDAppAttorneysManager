@@ -1,3 +1,4 @@
+// Translations declaration
 const translations = {
     en: {
         allSpecialties: "All Specialties",

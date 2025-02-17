@@ -6,8 +6,10 @@ import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js';
 import { useMediaQuery } from '@mui/material';
 
+// Register necessary Chart.js components
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);
 
+// Define specialty styles for different types of law
 const specialtyStyles = {
     "Personal Law": { backgroundColor: "#FAE3D9", color: "#E07A5F" },
     "Criminal Law": { backgroundColor: "#F7D6E0", color: "#D96B92" },
@@ -28,6 +30,7 @@ const specialtyStyles = {
     default: { backgroundColor: "#E0E0E0", color: "#7A7A7A" },
 };
 
+// Main component displaying attorney details with statistical insights
 const DetailDashboard = ({ attorney, language }) => {
     const translate = translations[language];
     const isMobile800 = useMediaQuery('(max-width:800px)');
@@ -53,6 +56,7 @@ const DetailDashboard = ({ attorney, language }) => {
                     {translate.detailDashboardTitle}
                 </Typography>
                 <Grid container spacing={2} justifyContent="center" direction="column" alignItems="center">
+                    {/* Display general information about the attorney */}
                     <Grid size={isMobile800 ? 12 : 6}>
                         <Paper sx={{
                             padding: 2,
@@ -86,6 +90,7 @@ const DetailDashboard = ({ attorney, language }) => {
                         </Paper>
                     </Grid>
 
+                    {/* Display attorney case results using a pie chart */}
                     <Grid size={isMobile800 ? 12 : 6}>
                         <Paper sx={{
                             padding: 2,

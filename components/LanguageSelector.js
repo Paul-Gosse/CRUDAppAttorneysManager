@@ -1,6 +1,9 @@
 import React from 'react';
 
+// The LanguageSelector component allows users to change the language of the application
 const LanguageSelector = ({ currentLang, onChange }) => {
+
+    // This function handles the change of language, updates the parent component and stores the language in localStorage
     const handleLanguageChange = (newLang) => {
         onChange(newLang);
         localStorage.setItem('language', newLang);

@@ -6,7 +6,10 @@ import 'react-phone-number-input/style.css';
 import translations from './Translations';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
+// AddPopUp component: A modal dialog for adding a new attorney.
 const AddPopUp = ({ open, onClose, onSave, setAlert, language }) => {
+
+    // Translate process
     const translate = translations[language];
 
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -26,6 +29,7 @@ const AddPopUp = ({ open, onClose, onSave, setAlert, language }) => {
         }
     }, [open]);
 
+    // Resets the form fields when the dialog closes
     const resetForm = () => {
         setFirstName('');
         setLastName('');
@@ -39,10 +43,12 @@ const AddPopUp = ({ open, onClose, onSave, setAlert, language }) => {
         setWonCases('');
     };
 
+    // Validates email format
     const isValidEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
 
+    // Handles form submission and validation
     const handleSave = async () => {
         if (!firstName || !lastName || !specialty || !phoneNumber || !email || !totalCases || !wonCases || !description) {
             setAlert({ severity: 'error', message: translate.fieldsRequired });
@@ -104,6 +110,7 @@ const AddPopUp = ({ open, onClose, onSave, setAlert, language }) => {
         }
     };
 
+    // Handles phone number input and extracts country details
     const handlePhoneChange = (value) => {
         setPhoneNumber(value);
         const parsedPhone = parsePhoneNumberFromString(value);
